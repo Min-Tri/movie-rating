@@ -12,6 +12,8 @@ export const Wrapper = styled.div`
   height: 500px;
   position: relative;
   animation: animateHeroImage 1s;
+  overflow: hidden;
+  text-overflow: ellipsis; 
 
   @keyframes animateHeroImage {
     from {

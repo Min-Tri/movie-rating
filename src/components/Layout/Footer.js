@@ -13,7 +13,7 @@ const Footer =()=>{
         <Wrapper>
             <Content>
                 <TMDBLogoImg src={TMDBLogo}/>
-                <p>Made with love by Min-Tri</p>
+               
             </Content>
         </Wrapper>
     )

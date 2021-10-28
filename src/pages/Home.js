@@ -1,5 +1,5 @@
 import React,{useEffect} from "react";
-
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 // config
 import {POSTER_SIZE,BACKDROP_SIZE,IMAGE_BASE_URL} from '../config'
 
@@ -22,6 +22,30 @@ import NoImage from '../images/no_image.jpg'
 // styles
 import { Content, Rate } from "./Home.styles";
 
+// import Swiper core and required modules
+import SwiperCore, {
+    Autoplay,Pagination,Navigation
+  } from 'swiper';
+  
+// install Swiper modules
+SwiperCore.use([Autoplay,Pagination,Navigation]);
+
+const mystyle = {
+   
+    /* Center slide text vertically */
+    whiteSpace: 'nowrap',
+    width: '100%',
+    height: '500px',
+    overflow: 'hidden',
+}
+const mstyle = {
+   
+    /* Center slide text vertically */
+    display: 'inline-block',
+   
+}
+
+
 const Home=()=>{
     const {state,loading,error,searchTerm,setSearchTerm,setIsLoadingMore}=useHomeFetch()
     // console.log(state)
@@ -30,17 +54,41 @@ const Home=()=>{
         document.title = 'Movie rating'
         // console.log('Movie rating')
     },[])
-
+    
     if (error) return <div>Something went wrong ...</div>
 
     return(
         <div>
             {!searchTerm && state.results[0]&&
-               ( <HeroImage
-                   image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
-                   title={state.results[0].original_title}
-                   text={state.results[0].overview}
-                />)
+               ( 
+                <Swiper spaceBetween={30} centeredSlides={true} autoplay={{
+                    "delay": 2500,
+                    "disableOnInteraction": false
+                  }} pagination={{
+                    "clickable": true
+                  }} navigation={true} className="mySwiper" style={mystyle}>
+                    <SwiperSlide style={mstyle}>
+                    <HeroImage
+                        image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[0].backdrop_path}`}
+                        title={state.results[0].original_title}
+                        text={state.results[0].overview}
+                    />
+                    </SwiperSlide>
+                    <SwiperSlide style={mstyle}>
+                    <HeroImage
+                        image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[1].backdrop_path}`}
+                        title={state.results[1].original_title}
+                        text={state.results[1].overview}
+                    />
+                    </SwiperSlide>
+                    <SwiperSlide style={mstyle}>
+                    <HeroImage
+                        image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${state.results[2].backdrop_path}`}
+                        title={state.results[2].original_title}
+                        text={state.results[2].overview}
+                    />
+                    </SwiperSlide>
+                </Swiper>)
             }
             <SearchBar setSearchTerm={setSearchTerm}/>
             <Grid header={searchTerm? 'Search Result': 'Popular Movies'}>
