@@ -39,6 +39,7 @@ export const Text = styled.div`
   margin-right: 20px;
   min-height: 100px;
   color: var(--white);
+  white-space: pre-wrap;
 
   h1 {
     font-size: var(--fontSuperBig);
